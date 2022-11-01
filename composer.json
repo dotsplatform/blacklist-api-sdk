@@ -1,0 +1,40 @@
+{
+    "name": "dotsplatform/blacklist-api-sdk",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Dotsplatform\\Blacklist\\": "src/App",
+            "Dots\\": "library/Dots/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Oleksandr Polosmak",
+            "email": "olexandr.polosmak123@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : "^8.1",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.0",
+        "illuminate/support": "^9.",
+        "dotsplatform/utils": "1.*"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.2",
+        "eduarguz/shift-php-cs": "^3.0"
+    },
+    "scripts": {
+        "init-pre-commit": [
+            "cp .git-hooks-pre-commit .git/hooks/pre-commit"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dotsplatform\\Blacklist\\BlacklistApiServiceProvider"
+            ]
+        }
+    }
+}
