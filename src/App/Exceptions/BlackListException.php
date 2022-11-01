@@ -7,10 +7,8 @@
 
 namespace Dotsplatform\Blacklist\Exceptions;
 
-
 use Exception;
 
 class BlackListException extends Exception
 {
-
 }

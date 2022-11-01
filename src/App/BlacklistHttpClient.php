@@ -7,7 +7,6 @@
 
 namespace Dotsplatform\Blacklist;
 
-
 use Dotsplatform\Blacklist\DTO\BannedUsersList;
 use Dotsplatform\Blacklist\DTO\UserDTO;
 use Dotsplatform\Blacklist\Exceptions\BlackListException;

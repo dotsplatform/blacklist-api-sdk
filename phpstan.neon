@@ -6,3 +6,4 @@ parameters:
   ignoreErrors:
     - '#Function config_path not found.#'
     - '#Function config not found.#'
+    - '#Unsafe usage of new static#'
