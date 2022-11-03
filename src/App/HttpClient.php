@@ -21,7 +21,7 @@ abstract class HttpClient
 
     public function __construct(
     ) {
-        $this->serviceHost = config('blacklist-api-sdk.verification-server.host');
+        $this->serviceHost = config('blacklist-api-sdk.blacklist-server.host');
     }
 
     protected function makeClient(): GuzzleClient
@@ -73,6 +73,14 @@ abstract class HttpClient
         return $this->decodeResponse($response);
     }
 
+    /**
+     * @param string $uri
+     * @param array|null $body
+     * @param array $params
+     * @return array
+     * @throws BlackListException
+     * @throws GuzzleException
+     */
     protected function put(string $uri, ?array $body = null, array $params = []): array
     {
         $client = $this->makeClient();
@@ -88,6 +96,13 @@ abstract class HttpClient
         return $this->decodeResponse($response);
     }
 
+    /**
+     * @param string $uri
+     * @param array $params
+     * @return array
+     * @throws BlackListException
+     * @throws GuzzleException
+     */
     protected function delete(string $uri, array $params = []): array
     {
         $client = $this->makeClient();
@@ -113,7 +128,8 @@ abstract class HttpClient
             return;
         }
         throw new BlackListException(
-            "Blacklist Request failed with status code {$response->getStatusCode()}"
+            'Blacklist Request failed with status code',
+            $response->getStatusCode(),
         );
     }
 
