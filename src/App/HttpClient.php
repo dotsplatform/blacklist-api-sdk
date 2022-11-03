@@ -7,7 +7,7 @@
 
 namespace Dotsplatform\Blacklist;
 
-use Dotsplatform\Blacklist\Exceptions\BlackListException;
+use Dotsplatform\Blacklist\Exceptions\BlacklistException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -21,7 +21,7 @@ abstract class HttpClient
 
     public function __construct(
     ) {
-        $this->serviceHost = config('blacklist-api-sdk.verification-server.host');
+        $this->serviceHost = config('blacklist-api-sdk.blacklist-server.host');
     }
 
     protected function makeClient(): GuzzleClient
@@ -56,7 +56,7 @@ abstract class HttpClient
      * @param array|null $body
      * @param array $params
      * @return array
-     * @throws BlackListException
+     * @throws BlacklistException
      * @throws GuzzleException
      */
     protected function post(string $uri, ?array $body = null, array $params = []): array
@@ -73,6 +73,14 @@ abstract class HttpClient
         return $this->decodeResponse($response);
     }
 
+    /**
+     * @param string $uri
+     * @param array|null $body
+     * @param array $params
+     * @return array
+     * @throws BlacklistException
+     * @throws GuzzleException
+     */
     protected function put(string $uri, ?array $body = null, array $params = []): array
     {
         $client = $this->makeClient();
@@ -88,6 +96,13 @@ abstract class HttpClient
         return $this->decodeResponse($response);
     }
 
+    /**
+     * @param string $uri
+     * @param array $params
+     * @return array
+     * @throws BlacklistException
+     * @throws GuzzleException
+     */
     protected function delete(string $uri, array $params = []): array
     {
         $client = $this->makeClient();
@@ -105,15 +120,16 @@ abstract class HttpClient
     /**
      * @param ResponseInterface $response
      * @return void
-     * @throws BlackListException
+     * @throws BlacklistException
      */
     protected function parseResponseStatus(ResponseInterface $response): void
     {
         if ($response->getStatusCode() < 400) {
             return;
         }
-        throw new BlackListException(
-            "Blacklist Request failed with status code {$response->getStatusCode()}"
+        throw new BlacklistException(
+            'Blacklist Request failed with status code',
+            $response->getStatusCode(),
         );
     }
 
