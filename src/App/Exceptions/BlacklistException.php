@@ -9,6 +9,6 @@ namespace Dotsplatform\Blacklist\Exceptions;
 
 use Exception;
 
-class BlackListException extends Exception
+class BlacklistException extends Exception
 {
 }

@@ -7,7 +7,7 @@
 
 namespace Dotsplatform\Blacklist;
 
-use Dotsplatform\Blacklist\Exceptions\BlackListException;
+use Dotsplatform\Blacklist\Exceptions\BlacklistException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -56,7 +56,7 @@ abstract class HttpClient
      * @param array|null $body
      * @param array $params
      * @return array
-     * @throws BlackListException
+     * @throws BlacklistException
      * @throws GuzzleException
      */
     protected function post(string $uri, ?array $body = null, array $params = []): array
@@ -78,7 +78,7 @@ abstract class HttpClient
      * @param array|null $body
      * @param array $params
      * @return array
-     * @throws BlackListException
+     * @throws BlacklistException
      * @throws GuzzleException
      */
     protected function put(string $uri, ?array $body = null, array $params = []): array
@@ -100,7 +100,7 @@ abstract class HttpClient
      * @param string $uri
      * @param array $params
      * @return array
-     * @throws BlackListException
+     * @throws BlacklistException
      * @throws GuzzleException
      */
     protected function delete(string $uri, array $params = []): array
@@ -120,14 +120,14 @@ abstract class HttpClient
     /**
      * @param ResponseInterface $response
      * @return void
-     * @throws BlackListException
+     * @throws BlacklistException
      */
     protected function parseResponseStatus(ResponseInterface $response): void
     {
         if ($response->getStatusCode() < 400) {
             return;
         }
-        throw new BlackListException(
+        throw new BlacklistException(
             'Blacklist Request failed with status code',
             $response->getStatusCode(),
         );

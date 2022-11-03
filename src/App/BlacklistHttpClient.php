@@ -10,10 +10,9 @@ namespace Dotsplatform\Blacklist;
 use Dotsplatform\Blacklist\DTO\BannedUsersList;
 use Dotsplatform\Blacklist\DTO\PhoneFiltersDTO;
 use Dotsplatform\Blacklist\DTO\UserDTO;
-use Dotsplatform\Blacklist\Exceptions\BlackListException;
+use Dotsplatform\Blacklist\Exceptions\BlacklistException;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Facades\Log;
 
 class BlacklistHttpClient extends HttpClient
 {
@@ -24,6 +23,7 @@ class BlacklistHttpClient extends HttpClient
 
     /**
      * @throws GuzzleException
+     * @throws BlacklistException
      */
     public function storeUser(UserDTO $dto): void
     {
@@ -31,12 +31,7 @@ class BlacklistHttpClient extends HttpClient
         $body = [
             'note' => $dto->getNote(),
         ];
-        try {
-            $this->post($url, $body);
-        } catch (BlackListException $e) {
-            $data = $this->generateErrorData($e, $body);
-            Log::error('Store user blacklist exception', $data);
-        }
+        $this->post($url, $body);
     }
 
     public function findUser(string $accountId, string $phone): ?UserDTO
@@ -57,16 +52,12 @@ class BlacklistHttpClient extends HttpClient
 
     /**
      * @throws GuzzleException
+     * @throws BlacklistException
      */
     public function deleteUser(string $accountId, string $phone): void
     {
         $url = $this->getDeleteUserUrlTemplate($accountId, $phone);
-        try {
-            $this->delete($url);
-        } catch (BlackListException $e) {
-            $data = $this->generateErrorData($e);
-            Log::error('Delete user blacklist exception', $data);
-        }
+        $this->delete($url);
     }
 
     public function getUsersByAccount(PhoneFiltersDTO $dto): BannedUsersList
@@ -100,18 +91,5 @@ class BlacklistHttpClient extends HttpClient
     private function getIndexUsersUrlTemplate(string $accountId): string
     {
         return sprintf(self::INDEX_USERS_URL_TEMPLATE, $accountId);
-    }
-
-    private function generateErrorData(
-        BlackListException $e,
-        array $body = [],
-    ): array {
-        return [
-            json_encode([
-                'code' => $e->getCode(),
-                'message' => $e->getMessage(),
-                'body' => $body,
-            ])
-        ];
     }
 }
