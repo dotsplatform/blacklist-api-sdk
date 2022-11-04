@@ -14,6 +14,12 @@ class UserDTO extends DTO
     protected string $phone;
     protected string $accountId;
     protected ?string $note = null;
+    protected ?int $createdAt = null;
+
+    public function getCreatedAt(): ?int
+    {
+        return $this->createdAt;
+    }
 
     public function getPhone(): string
     {
