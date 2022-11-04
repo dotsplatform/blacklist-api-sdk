@@ -47,6 +47,7 @@ class BlacklistHttpClient extends HttpClient
             'accountId' => $response['account_id'],
             'phone' => $response['phone'],
             'note' => $response['note'] ?? null,
+            'createdAt' => $response['created_at'] ?? null,
         ]);
     }
 
