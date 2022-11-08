@@ -53,11 +53,7 @@ class BlacklistHttpClient extends HttpClient
 
     public function isPhoneBanned(string $accountId, string $phone): bool
     {
-        $user = $this->findUser($accountId, $phone);
-        if ($user) {
-            return true;
-        }
-        return false;
+        return (bool) $this->findUser($accountId, $phone);
     }
 
     /**
