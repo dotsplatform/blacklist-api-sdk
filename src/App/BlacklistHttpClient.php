@@ -51,6 +51,11 @@ class BlacklistHttpClient extends HttpClient
         ]);
     }
 
+    public function isPhoneBanned(string $accountId, string $phone): bool
+    {
+        return (bool) $this->findUser($accountId, $phone);
+    }
+
     /**
      * @throws GuzzleException
      * @throws BlacklistException
