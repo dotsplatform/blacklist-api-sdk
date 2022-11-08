@@ -14,7 +14,7 @@ use Dotsplatform\Blacklist\Exceptions\BlacklistException;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 
-class BlacklistHttpClient extends HttpClient
+class BlacklistHttpClient extends HttpClient implements BlacklistClient
 {
     private const STORE_USER_URL_TEMPLATE = '/api/%s/phones/%s';
     private const FIND_USER_URL_TEMPLATE = '/api/%s/phones/%s';
@@ -53,7 +53,7 @@ class BlacklistHttpClient extends HttpClient
 
     public function isPhoneBanned(string $accountId, string $phone): bool
     {
-        return (bool) $this->findUser($accountId, $phone);
+        return (bool)$this->findUser($accountId, $phone);
     }
 
     /**
