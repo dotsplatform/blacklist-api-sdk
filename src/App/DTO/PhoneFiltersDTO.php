@@ -11,17 +11,19 @@ use Dots\Data\DTO;
 
 class PhoneFiltersDTO extends DTO
 {
-    protected string $accountId;
-    protected int $limit = 50;
-    protected int $offset = 0;
-    protected ?string $phone = null;
-    protected ?int $dateFrom = null;
-    protected ?int $dateTo = null;
 
-    public function getAccountId(): string
-    {
-        return $this->accountId;
-    }
+    protected string $accountId;
+
+    protected int $limit = 50;
+
+    protected int $offset = 0;
+
+    protected ?string $phone;
+    protected array $phones = [];
+
+    protected ?int $dateFrom;
+
+    protected ?int $dateTo;
 
     public function getLimit(): int
     {
@@ -38,6 +40,11 @@ class PhoneFiltersDTO extends DTO
         return $this->phone;
     }
 
+    public function getPhones(): array
+    {
+        return $this->phones;
+    }
+
     public function getDateFrom(): ?int
     {
         return $this->dateFrom;
@@ -46,5 +53,10 @@ class PhoneFiltersDTO extends DTO
     public function getDateTo(): ?int
     {
         return $this->dateTo;
+    }
+
+    public function getAccountId(): string
+    {
+        return $this->accountId;
     }
 }
