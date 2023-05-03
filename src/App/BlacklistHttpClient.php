@@ -69,14 +69,10 @@ class BlacklistHttpClient extends HttpClient implements BlacklistClient
     public function getUsersByAccount(PhoneFiltersDTO $dto): BannedUsersList
     {
         $url = $this->getIndexUsersUrlTemplate($dto->getAccountId());
-        try {
-            $response = $this->get($url, [
-                'query' => $dto->toArray(),
-            ]);
-            return BannedUsersList::fromArray($response);
-        } catch (Exception) {
-            return BannedUsersList::empty();
-        }
+        $response = $this->get($url, [
+            'query' => $dto->toArray(),
+        ]);
+        return BannedUsersList::fromArray($response);
     }
 
     private function getStoreUserUrlTemplate(string $accountId, string $phone): string
