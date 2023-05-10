@@ -7,7 +7,6 @@
 
 namespace Dotsplatform\Blacklist\DTO;
 
-
 use Dots\Data\DTO;
 
 class Phone extends DTO
