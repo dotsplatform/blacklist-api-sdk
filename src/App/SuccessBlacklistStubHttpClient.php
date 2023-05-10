@@ -7,9 +7,10 @@
 
 namespace Dotsplatform\Blacklist;
 
-use Dotsplatform\Blacklist\DTO\BannedUsersList;
+use Dotsplatform\Blacklist\DTO\BannedPhonesList;
+use Dotsplatform\Blacklist\DTO\Phone;
 use Dotsplatform\Blacklist\DTO\PhoneFiltersDTO;
-use Dotsplatform\Blacklist\DTO\UserDTO;
+use Dotsplatform\Blacklist\DTO\StorePhonesDTO;
 
 class SuccessBlacklistStubHttpClient implements BlacklistClient
 {
@@ -18,24 +19,24 @@ class SuccessBlacklistStubHttpClient implements BlacklistClient
         return false;
     }
 
-    public function storeUser(UserDTO $dto): void
+    public function storePhones(StorePhonesDTO $dto): void
     {
         // TODO: Implement storeUser() method.
     }
 
-    public function findUser(string $accountId, string $phone): ?UserDTO
+    public function findPhone(string $accountId, string $phone): ?Phone
     {
         return null;
     }
 
-    public function deleteUser(string $accountId, string $phone): void
+    public function deletePhone(string $accountId, string $phone): void
     {
         // TODO: Implement deleteUser() method.
     }
 
-    public function getUsersByAccount(PhoneFiltersDTO $dto): BannedUsersList
+    public function getPhonesByAccount(PhoneFiltersDTO $dto): BannedPhonesList
     {
-        return BannedUsersList::fromArray([
+        return BannedPhonesList::fromArray([
             [
                 'accountId' => $dto->getAccountId(),
                 'phone' => 'phone',
