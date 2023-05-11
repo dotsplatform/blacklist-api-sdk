@@ -8,7 +8,7 @@
 namespace Dotsplatform\Blacklist;
 
 use Dotsplatform\Blacklist\DTO\BannedPhonesList;
-use Dotsplatform\Blacklist\DTO\Phone;
+use Dotsplatform\Blacklist\DTO\PhoneDTO;
 use Dotsplatform\Blacklist\DTO\PhoneFiltersDTO;
 use Dotsplatform\Blacklist\DTO\StorePhonesDTO;
 use Dotsplatform\Blacklist\Exceptions\BlacklistException;
@@ -36,7 +36,7 @@ class BlacklistHttpClient extends HttpClient implements BlacklistClient
         $this->post($url, $body);
     }
 
-    public function findPhone(string $accountId, string $phone): ?Phone
+    public function findPhone(string $accountId, string $phone): ?PhoneDTO
     {
         $url = $this->getFindPhoneUrlTemplate($accountId, $phone);
         try {
@@ -45,7 +45,7 @@ class BlacklistHttpClient extends HttpClient implements BlacklistClient
             return null;
         }
 
-        return Phone::fromArray([
+        return PhoneDTO::fromArray([
             'accountId' => $response['account_id'],
             'phone' => $response['phone'],
             'note' => $response['note'] ?? null,

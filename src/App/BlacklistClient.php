@@ -8,7 +8,7 @@
 namespace Dotsplatform\Blacklist;
 
 use Dotsplatform\Blacklist\DTO\BannedPhonesList;
-use Dotsplatform\Blacklist\DTO\Phone;
+use Dotsplatform\Blacklist\DTO\PhoneDTO;
 use Dotsplatform\Blacklist\DTO\PhoneFiltersDTO;
 use Dotsplatform\Blacklist\DTO\StorePhonesDTO;
 
@@ -16,7 +16,7 @@ interface BlacklistClient
 {
     public function storePhones(StorePhonesDTO $dto): void;
 
-    public function findPhone(string $accountId, string $phone): ?Phone;
+    public function findPhone(string $accountId, string $phone): ?PhoneDTO;
 
     public function isPhoneBanned(string $accountId, string $phone): bool;
 

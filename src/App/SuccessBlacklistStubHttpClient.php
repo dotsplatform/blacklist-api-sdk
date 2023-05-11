@@ -8,7 +8,7 @@
 namespace Dotsplatform\Blacklist;
 
 use Dotsplatform\Blacklist\DTO\BannedPhonesList;
-use Dotsplatform\Blacklist\DTO\Phone;
+use Dotsplatform\Blacklist\DTO\PhoneDTO;
 use Dotsplatform\Blacklist\DTO\PhoneFiltersDTO;
 use Dotsplatform\Blacklist\DTO\StorePhonesDTO;
 
@@ -24,7 +24,7 @@ class SuccessBlacklistStubHttpClient implements BlacklistClient
         // TODO: Implement storeUser() method.
     }
 
-    public function findPhone(string $accountId, string $phone): ?Phone
+    public function findPhone(string $accountId, string $phone): ?PhoneDTO
     {
         return null;
     }

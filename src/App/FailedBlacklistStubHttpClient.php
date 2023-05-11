@@ -8,7 +8,7 @@
 namespace Dotsplatform\Blacklist;
 
 use Dotsplatform\Blacklist\DTO\BannedPhonesList;
-use Dotsplatform\Blacklist\DTO\Phone;
+use Dotsplatform\Blacklist\DTO\PhoneDTO;
 use Dotsplatform\Blacklist\DTO\PhoneFiltersDTO;
 use Dotsplatform\Blacklist\DTO\StorePhonesDTO;
 use Dotsplatform\Blacklist\Exceptions\BlacklistException;
@@ -25,9 +25,9 @@ class FailedBlacklistStubHttpClient implements BlacklistClient
         throw new BlacklistException('User cannon be stored');
     }
 
-    public function findPhone(string $accountId, string $phone): ?Phone
+    public function findPhone(string $accountId, string $phone): ?PhoneDTO
     {
-        return Phone::fromArray([
+        return PhoneDTO::fromArray([
             'accountId' => $accountId,
             'phone' => $phone,
             'note' => 'note'

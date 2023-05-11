@@ -9,7 +9,7 @@ namespace Dotsplatform\Blacklist\DTO;
 
 use Dots\Data\DTO;
 
-class Phone extends DTO
+class PhoneDTO extends DTO
 {
     protected string $phone;
     protected string $accountId;
