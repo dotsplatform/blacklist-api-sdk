@@ -43,4 +43,9 @@ class FailedBlacklistStubHttpClient implements BlacklistClient
     {
         return BannedPhonesList::empty();
     }
+
+    public function storePhone(PhoneDTO $dto): void
+    {
+        // TODO: Implement storePhone() method.
+    }
 }

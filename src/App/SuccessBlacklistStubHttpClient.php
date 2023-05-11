@@ -44,4 +44,9 @@ class SuccessBlacklistStubHttpClient implements BlacklistClient
             ]
         ]);
     }
+
+    public function storePhone(PhoneDTO $dto): void
+    {
+        // TODO: Implement storePhone() method.
+    }
 }

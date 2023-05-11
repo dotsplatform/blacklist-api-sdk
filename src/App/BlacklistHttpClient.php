@@ -18,6 +18,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class BlacklistHttpClient extends HttpClient implements BlacklistClient
 {
     private const STORE_PHONES_URL_TEMPLATE = '/api/%s/phones';
+    private const STORE_PHONE_URL_TEMPLATE = '/api/%s/phones/%s';
     private const FIND_PHONE_URL_TEMPLATE = '/api/%s/phones/%s';
     private const DELETE_PHONE_URL_TEMPLATE = '/api/%s/phones/%s';
     private const INDEX_PHONES_URL_TEMPLATE = '/api/%s/phones';
@@ -32,6 +33,19 @@ class BlacklistHttpClient extends HttpClient implements BlacklistClient
         $body = [
             'note' => $dto->getNote(),
             'phones' => $dto->getPhones(),
+        ];
+        $this->post($url, $body);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws BlacklistException
+     */
+    public function storePhone(PhoneDTO $dto): void
+    {
+        $url = $this->getStorePhoneUrlTemplate($dto->getAccountId(), $dto->getPhone());
+        $body = [
+            'note' => $dto->getNote(),
         ];
         $this->post($url, $body);
     }
@@ -80,6 +94,11 @@ class BlacklistHttpClient extends HttpClient implements BlacklistClient
     private function getStorePhonesUrlTemplate(string $accountId): string
     {
         return sprintf(self::STORE_PHONES_URL_TEMPLATE, $accountId);
+    }
+
+    private function getStorePhoneUrlTemplate(string $accountId, string $phone): string
+    {
+        return sprintf(self::STORE_PHONE_URL_TEMPLATE, $accountId, $phone);
     }
 
     private function getFindPhoneUrlTemplate(string $accountId, string $phone): string
