@@ -11,18 +11,12 @@ use Dots\Data\DTO;
 
 class PhoneFiltersDTO extends DTO
 {
-
     protected string $accountId;
-
     protected int $limit = 50;
-
     protected int $offset = 0;
-
     protected ?string $phone;
     protected array $phones = [];
-
     protected ?int $dateFrom;
-
     protected ?int $dateTo;
 
     public function getLimit(): int

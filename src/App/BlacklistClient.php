@@ -7,19 +7,32 @@
 
 namespace Dotsplatform\Blacklist;
 
-use Dotsplatform\Blacklist\DTO\BannedUsersList;
+use Dotsplatform\Blacklist\DTO\BannedPhonesList;
+use Dotsplatform\Blacklist\DTO\PhoneDTO;
 use Dotsplatform\Blacklist\DTO\PhoneFiltersDTO;
-use Dotsplatform\Blacklist\DTO\UserDTO;
+use Dotsplatform\Blacklist\DTO\StorePhonesDTO;
+use Dotsplatform\Blacklist\Exceptions\BlacklistException;
+use GuzzleHttp\Exception\GuzzleException;
 
 interface BlacklistClient
 {
-    public function storeUser(UserDTO $dto): void;
+    /**
+     * @throws GuzzleException
+     * @throws BlacklistException
+     */
+    public function storePhones(StorePhonesDTO $dto): void;
 
-    public function findUser(string $accountId, string $phone): ?UserDTO;
+    /**
+     * @throws GuzzleException
+     * @throws BlacklistException
+     */
+    public function storePhone(PhoneDTO $dto): void;
+
+    public function findPhone(string $accountId, string $phone): ?PhoneDTO;
 
     public function isPhoneBanned(string $accountId, string $phone): bool;
 
-    public function deleteUser(string $accountId, string $phone): void;
+    public function deletePhone(string $accountId, string $phone): void;
 
-    public function getUsersByAccount(PhoneFiltersDTO $dto): BannedUsersList;
+    public function getPhonesByAccount(PhoneFiltersDTO $dto): BannedPhonesList;
 }

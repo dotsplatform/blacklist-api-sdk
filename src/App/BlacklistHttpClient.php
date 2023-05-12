@@ -7,43 +7,59 @@
 
 namespace Dotsplatform\Blacklist;
 
-use Dotsplatform\Blacklist\DTO\BannedUsersList;
+use Dotsplatform\Blacklist\DTO\BannedPhonesList;
+use Dotsplatform\Blacklist\DTO\PhoneDTO;
 use Dotsplatform\Blacklist\DTO\PhoneFiltersDTO;
-use Dotsplatform\Blacklist\DTO\UserDTO;
+use Dotsplatform\Blacklist\DTO\StorePhonesDTO;
 use Dotsplatform\Blacklist\Exceptions\BlacklistException;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 
 class BlacklistHttpClient extends HttpClient implements BlacklistClient
 {
-    private const STORE_USER_URL_TEMPLATE = '/api/%s/phones/%s';
-    private const FIND_USER_URL_TEMPLATE = '/api/%s/phones/%s';
-    private const DELETE_USER_URL_TEMPLATE = '/api/%s/phones/%s';
-    private const INDEX_USERS_URL_TEMPLATE = '/api/%s/phones';
+    private const STORE_PHONES_URL_TEMPLATE = '/api/%s/phones';
+    private const STORE_PHONE_URL_TEMPLATE = '/api/%s/phones/%s';
+    private const FIND_PHONE_URL_TEMPLATE = '/api/%s/phones/%s';
+    private const DELETE_PHONE_URL_TEMPLATE = '/api/%s/phones/%s';
+    private const INDEX_PHONES_URL_TEMPLATE = '/api/%s/phones';
 
     /**
      * @throws GuzzleException
      * @throws BlacklistException
      */
-    public function storeUser(UserDTO $dto): void
+    public function storePhones(StorePhonesDTO $dto): void
     {
-        $url = $this->getStoreUserUrlTemplate($dto->getAccountId(), $dto->getPhone());
+        $url = $this->getStorePhonesUrlTemplate($dto->getAccountId());
+        $body = [
+            'note' => $dto->getNote(),
+            'phones' => $dto->getPhones(),
+        ];
+        $this->post($url, $body);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws BlacklistException
+     */
+    public function storePhone(PhoneDTO $dto): void
+    {
+        $url = $this->getStorePhoneUrlTemplate($dto->getAccountId(), $dto->getPhone());
         $body = [
             'note' => $dto->getNote(),
         ];
         $this->post($url, $body);
     }
 
-    public function findUser(string $accountId, string $phone): ?UserDTO
+    public function findPhone(string $accountId, string $phone): ?PhoneDTO
     {
-        $url = $this->getFindUserUrlTemplate($accountId, $phone);
+        $url = $this->getFindPhoneUrlTemplate($accountId, $phone);
         try {
             $response = $this->get($url);
         } catch (Exception) {
             return null;
         }
 
-        return UserDTO::fromArray([
+        return PhoneDTO::fromArray([
             'accountId' => $response['account_id'],
             'phone' => $response['phone'],
             'note' => $response['note'] ?? null,
@@ -53,45 +69,50 @@ class BlacklistHttpClient extends HttpClient implements BlacklistClient
 
     public function isPhoneBanned(string $accountId, string $phone): bool
     {
-        return (bool)$this->findUser($accountId, $phone);
+        return (bool)$this->findPhone($accountId, $phone);
     }
 
     /**
      * @throws GuzzleException
      * @throws BlacklistException
      */
-    public function deleteUser(string $accountId, string $phone): void
+    public function deletePhone(string $accountId, string $phone): void
     {
-        $url = $this->getDeleteUserUrlTemplate($accountId, $phone);
+        $url = $this->getDeletePhoneUrlTemplate($accountId, $phone);
         $this->delete($url);
     }
 
-    public function getUsersByAccount(PhoneFiltersDTO $dto): BannedUsersList
+    public function getPhonesByAccount(PhoneFiltersDTO $dto): BannedPhonesList
     {
-        $url = $this->getIndexUsersUrlTemplate($dto->getAccountId());
+        $url = $this->getIndexPhonesUrlTemplate($dto->getAccountId());
         $response = $this->get($url, [
             'query' => $dto->toArray(),
         ]);
-        return BannedUsersList::fromArray($response);
+        return BannedPhonesList::fromArray($response);
     }
 
-    private function getStoreUserUrlTemplate(string $accountId, string $phone): string
+    private function getStorePhonesUrlTemplate(string $accountId): string
     {
-        return sprintf(self::STORE_USER_URL_TEMPLATE, $accountId, $phone);
+        return sprintf(self::STORE_PHONES_URL_TEMPLATE, $accountId);
     }
 
-    private function getFindUserUrlTemplate(string $accountId, string $phone): string
+    private function getStorePhoneUrlTemplate(string $accountId, string $phone): string
     {
-        return sprintf(self::FIND_USER_URL_TEMPLATE, $accountId, $phone);
+        return sprintf(self::STORE_PHONE_URL_TEMPLATE, $accountId, $phone);
     }
 
-    private function getDeleteUserUrlTemplate(string $accountId, string $phone): string
+    private function getFindPhoneUrlTemplate(string $accountId, string $phone): string
     {
-        return sprintf(self::DELETE_USER_URL_TEMPLATE, $accountId, $phone);
+        return sprintf(self::FIND_PHONE_URL_TEMPLATE, $accountId, $phone);
     }
 
-    private function getIndexUsersUrlTemplate(string $accountId): string
+    private function getDeletePhoneUrlTemplate(string $accountId, string $phone): string
     {
-        return sprintf(self::INDEX_USERS_URL_TEMPLATE, $accountId);
+        return sprintf(self::DELETE_PHONE_URL_TEMPLATE, $accountId, $phone);
+    }
+
+    private function getIndexPhonesUrlTemplate(string $accountId): string
+    {
+        return sprintf(self::INDEX_PHONES_URL_TEMPLATE, $accountId);
     }
 }
