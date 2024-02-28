@@ -32,6 +32,8 @@ interface BlacklistClient
 
     public function isPhoneBanned(string $accountId, string $phone): bool;
 
+    public function deletePhones(string $accountId): void;
+
     public function deletePhone(string $accountId, string $phone): void;
 
     public function getPhonesByAccount(PhoneFiltersDTO $dto): BannedPhonesList;
