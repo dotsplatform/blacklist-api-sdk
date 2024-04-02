@@ -29,6 +29,11 @@ class SuccessBlacklistStubHttpClient implements BlacklistClient
         return null;
     }
 
+    public function deletePhones(string $accountId): void
+    {
+        // TODO: Implement deleteUser() method.
+    }
+
     public function deletePhone(string $accountId, string $phone): void
     {
         // TODO: Implement deleteUser() method.

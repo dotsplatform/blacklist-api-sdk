@@ -20,6 +20,7 @@ class BlacklistHttpClient extends HttpClient implements BlacklistClient
     private const STORE_PHONES_URL_TEMPLATE = '/api/%s/phones';
     private const STORE_PHONE_URL_TEMPLATE = '/api/%s/phones/%s';
     private const FIND_PHONE_URL_TEMPLATE = '/api/%s/phones/%s';
+    private const DELETE_PHONES_URL_TEMPLATE = '/api/%s/phones';
     private const DELETE_PHONE_URL_TEMPLATE = '/api/%s/phones/%s';
     private const INDEX_PHONES_URL_TEMPLATE = '/api/%s/phones';
 
@@ -76,6 +77,16 @@ class BlacklistHttpClient extends HttpClient implements BlacklistClient
      * @throws GuzzleException
      * @throws BlacklistException
      */
+    public function deletePhones(string $accountId): void
+    {
+        $url = $this->getDeletePhonesUrlTemplate($accountId);
+        $this->delete($url);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws BlacklistException
+     */
     public function deletePhone(string $accountId, string $phone): void
     {
         $url = $this->getDeletePhoneUrlTemplate($accountId, $phone);
@@ -104,6 +115,11 @@ class BlacklistHttpClient extends HttpClient implements BlacklistClient
     private function getFindPhoneUrlTemplate(string $accountId, string $phone): string
     {
         return sprintf(self::FIND_PHONE_URL_TEMPLATE, $accountId, $phone);
+    }
+
+    private function getDeletePhonesUrlTemplate(string $accountId): string
+    {
+        return sprintf(self::DELETE_PHONES_URL_TEMPLATE, $accountId);
     }
 
     private function getDeletePhoneUrlTemplate(string $accountId, string $phone): string

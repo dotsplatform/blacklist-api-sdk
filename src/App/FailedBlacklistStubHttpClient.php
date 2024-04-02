@@ -34,6 +34,11 @@ class FailedBlacklistStubHttpClient implements BlacklistClient
         ]);
     }
 
+    public function deletePhones(string $accountId): void
+    {
+        throw new BlacklistException('Users cannon be deleted');
+    }
+
     public function deletePhone(string $accountId, string $phone): void
     {
         throw new BlacklistException('User cannon be deleted');
