@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5af706b94a5055e901a1c31935e1c4e",
+    "content-hash": "fb08564edefa2097692c0636fd9bfc73",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -99,16 +99,16 @@
         },
         {
             "name": "dotsplatform/utils",
-            "version": "v1.0.1",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotsplatform/utils.git",
-                "reference": "6b382bf6e51f0d9293d9d1ff5a1a89ea2a70b162"
+                "reference": "aacd5c123d43ad064469cc7d18528042e86f2890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotsplatform/utils/zipball/6b382bf6e51f0d9293d9d1ff5a1a89ea2a70b162",
-                "reference": "6b382bf6e51f0d9293d9d1ff5a1a89ea2a70b162",
+                "url": "https://api.github.com/repos/dotsplatform/utils/zipball/aacd5c123d43ad064469cc7d18528042e86f2890",
+                "reference": "aacd5c123d43ad064469cc7d18528042e86f2890",
                 "shasum": ""
             },
             "require": {
@@ -134,9 +134,9 @@
             "description": "Development tools from Dots Platform",
             "support": {
                 "issues": "https://github.com/dotsplatform/utils/issues",
-                "source": "https://github.com/dotsplatform/utils/tree/v1.0.1"
+                "source": "https://github.com/dotsplatform/utils/tree/v2.0.1"
             },
-            "time": "2022-10-11T14:42:38+00:00"
+            "time": "2024-03-27T06:49:38+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -3501,5 +3501,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
