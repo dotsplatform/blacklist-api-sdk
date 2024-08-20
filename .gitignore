@@ -2,3 +2,5 @@
 .idea
 .php-cs-fixer.cache
 .phpunit.result.cache
+.DS_Store
+src/.DS_Store
