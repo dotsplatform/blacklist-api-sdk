@@ -2,9 +2,5 @@
 .idea
 .php-cs-fixer.cache
 .phpunit.result.cache
-<<<<<<< HEAD
 .DS_Store
 src/.DS_Store
-=======
-.DS_Store
->>>>>>> b8f9e647cc1eba15132e5e8d9fdb33f0f346cc07
