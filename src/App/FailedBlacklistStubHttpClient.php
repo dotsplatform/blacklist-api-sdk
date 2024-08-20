@@ -7,9 +7,10 @@
 
 namespace Dotsplatform\Blacklist;
 
-use Dotsplatform\Blacklist\DTO\BannedUsersList;
+use Dotsplatform\Blacklist\DTO\BannedPhonesList;
+use Dotsplatform\Blacklist\DTO\PhoneDTO;
 use Dotsplatform\Blacklist\DTO\PhoneFiltersDTO;
-use Dotsplatform\Blacklist\DTO\UserDTO;
+use Dotsplatform\Blacklist\DTO\StorePhonesDTO;
 use Dotsplatform\Blacklist\Exceptions\BlacklistException;
 
 class FailedBlacklistStubHttpClient implements BlacklistClient
@@ -19,27 +20,37 @@ class FailedBlacklistStubHttpClient implements BlacklistClient
         return true;
     }
 
-    public function storeUser(UserDTO $dto): void
+    public function storePhones(StorePhonesDTO $dto): void
     {
         throw new BlacklistException('User cannon be stored');
     }
 
-    public function findUser(string $accountId, string $phone): ?UserDTO
+    public function findPhone(string $accountId, string $phone): ?PhoneDTO
     {
-        return UserDTO::fromArray([
+        return PhoneDTO::fromArray([
             'accountId' => $accountId,
             'phone' => $phone,
             'note' => 'note'
         ]);
     }
 
-    public function deleteUser(string $accountId, string $phone): void
+    public function deletePhones(string $accountId): void
+    {
+        throw new BlacklistException('Users cannon be deleted');
+    }
+
+    public function deletePhone(string $accountId, string $phone): void
     {
         throw new BlacklistException('User cannon be deleted');
     }
 
-    public function getUsersByAccount(PhoneFiltersDTO $dto): BannedUsersList
+    public function getPhonesByAccount(PhoneFiltersDTO $dto): BannedPhonesList
     {
-        return BannedUsersList::empty();
+        return BannedPhonesList::empty();
+    }
+
+    public function storePhone(PhoneDTO $dto): void
+    {
+        // TODO: Implement storePhone() method.
     }
 }
