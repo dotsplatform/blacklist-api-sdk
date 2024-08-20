@@ -59,6 +59,9 @@ class BlacklistHttpClient extends HttpClient implements BlacklistClient
         } catch (Exception) {
             return null;
         }
+        if (empty($response)) {
+            return null;
+        }
 
         return PhoneDTO::fromArray([
             'accountId' => $response['account_id'],
