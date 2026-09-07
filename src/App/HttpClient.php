@@ -26,7 +26,17 @@ abstract class HttpClient
     public function __construct(
     ) {
         $this->serviceHost = config('blacklist-api-sdk.blacklist-server.host');
-        $this->gatewayToken = (string) config('blacklist-api-sdk.blacklist-server.token');
+        $this->gatewayToken = $this->resolveGatewayToken();
+    }
+
+    private function resolveGatewayToken(): string
+    {
+        $token = config('blacklist-api-sdk.blacklist-server.token');
+        if (!is_string($token)) {
+            return '';
+        }
+
+        return $token;
     }
 
     protected function makeClient(): GuzzleClient
